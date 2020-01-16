@@ -30,6 +30,7 @@ function create(req, res, next) {
   const user = new User({
     username: req.body.username,
     fullName: req.body.fullName,
+    isAdmin: req.body.isAdmin,
     password: req.body.password,
   });
 

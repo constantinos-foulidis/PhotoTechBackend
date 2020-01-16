@@ -4,6 +4,14 @@ const httpStatus = require('http-status');
 const APIError = require('../helpers/APIError');
 
 const ProductSchema = new mongoose.Schema({
+  filename: {
+     type: String,
+     required: true
+   },
+   originalname: {
+     type: String,
+     required: true
+   },
   productDetail: {
     type: String,
     required: true
