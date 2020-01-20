@@ -27,16 +27,25 @@ function get(req, res) {
  * @returns {User}
  */
 function create(req, res, next) {
-  const user = new User({
-    username: req.body.username,
-    fullName: req.body.fullName,
-    isAdmin: req.body.isAdmin,
-    password: req.body.password,
+  User.findOne({username:req.body.username},function (err,user){
+    if(user !==null){
+      return res.json({
+        errorUsername: "user with this username already exist"
+      });
+    }else{
+      const user = new User({
+        username: req.body.username,
+        fullName: req.body.fullName,
+        isAdmin: req.body.isAdmin,
+        password: req.body.password,
+      });
+
+      user.save()
+        .then(savedUser => res.json(savedUser))
+        .catch(e => next(e));
+    }
   });
 
-  user.save()
-    .then(savedUser => res.json(savedUser))
-    .catch(e => next(e));
 }
 
 /**
