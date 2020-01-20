@@ -24,5 +24,7 @@ router.route('/:userId')
 
 /** Load user when API with userId route parameter is hit */
 router.param('userId', userCtrl.load);
+router.route('/update')
+.post(validate(paramValidation.updateUser), userCtrl.update);
 
 module.exports = router;

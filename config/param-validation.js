@@ -15,11 +15,11 @@ module.exports = {
   updateUser: {
     body: {
       username: Joi.string().required(),
-      mobileNumber: Joi.string().regex(/^[1-9][0-9]{9}$/).required()
-    },
-    params: {
-      userId: Joi.string().hex().required()
+      fullName: Joi.string().required(),
+      isAdmin: Joi.string().required(),
+      password: Joi.string().required()
     }
+  
   },
 
   // POST /api/auth/login

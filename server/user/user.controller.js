@@ -46,13 +46,24 @@ function create(req, res, next) {
  * @returns {User}
  */
 function update(req, res, next) {
-  const user = req.user;
-  user.username = req.body.username;
-  user.mobileNumber = req.body.mobileNumber;
+  User.findOneAndUpdate({username:req.body.username},req.body,{upsert:false},function(err,user){
+        if(user ===null){
+            return res.send(500,{error: "user with this username doesntExist"});
+        }else{
+          return res.json({
+            succefully: "Succefully user updated."
+          });
+        }
 
-  user.save()
-    .then(savedUser => res.json(savedUser))
-    .catch(e => next(e));
+
+  })
+//  const user = req.user;
+//  user.username = req.body.username;
+//  user.mobileNumber = req.body.mobileNumber;
+
+//  user.save()
+//    .then(savedUser => res.json(savedUser))
+//    .catch(e => next(e));
 }
 
 /**
