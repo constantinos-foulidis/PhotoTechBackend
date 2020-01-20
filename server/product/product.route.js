@@ -7,27 +7,27 @@ const productCtrl = require('./product.controller');
 const router = express.Router(); // eslint-disable-line new-cap
 
 router.route('/')
-  /** GET /api/users/products - Get list of users */
+  /** GET /api/products/products - Get list of products */
   .get(productCtrl.list)
 
-  /** POST /api/users - Create new user */
+  /** POST /api/products - Create new product */
   .post(validate(paramValidation.createProduct),productCtrl.create);
 
 
 
 router.route('/:productId')
-  /** GET /api/users/:userId - Get user */
+  /** GET /api/products/:productId - Get product */
   .get(productCtrl.get)
 
-  /** PUT /api/users/:userId - Update user */
+  /** PUT /api/products/:productId - Update product */
 
 
-  /** DELETE /api/users/:userId - Delete user */
+  /** DELETE /api/products/:productId - Delete product */
   .delete(productCtrl.remove);
 
 router.route('/update')
 .post(validate(paramValidation.updateProduct), productCtrl.update);
-/** Load user when API with userId route parameter is hit */
+/** Load product when API with productId route parameter is hit */
 //router.param('productId', productCtrl.load);
 
 module.exports = router;

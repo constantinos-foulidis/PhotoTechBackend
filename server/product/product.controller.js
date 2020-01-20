@@ -74,12 +74,18 @@ function create(req, res, next){
  * @returns {Product}
  */
 function update(req, res, next) {
+  //πρωτη παραμετρος ειναι το query δευτερη τι θελω να αντικαταστησω το upsert αν ειναι φαλσε
+  //σε περιπτωση που δεν υπαρχει το productCode δεν κανει create new product
   Product.findOneAndUpdate({productCode:req.body.productCode},req.body,{upsert:false},function(err,product){
      if(product === null){
       return res.send(500,{error: "the product with this productCode doesntExist"});
      }else{
-           if(req.body.wantToadd === "add"){
+           if(req.body.wantToadd === "add"){ //τι πραξη θελω να κανω
+             //req.body.productQuantity εχει την ποσοτητα που θελω να προσθεσω πχ αν το req.body.productQuantity
+             //ειναι 100  και το req.body.productQuantity ειναι 50
+             //στην βαση θα μπει 100+50 = 150
            product.productQuantity = product.productQuantity+req.body.productQuantity;
+           //κανουμε update to new productQuantity
            product.save(function(err){
                    if(err){
                      return res.json({
