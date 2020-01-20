@@ -1,4 +1,17 @@
 const Product = require('./product.model');
+var multer = require('multer');
+
+
+const storage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, "uploads/");
+	},
+	filename: (req, file, cb) => {
+		cb(null, file.originalname);
+	}
+});
+
+var upload = multer({storage: storage}).single('myimage');
 
 function load(req, res, next, id) {
   Product.get(id)
@@ -27,20 +40,28 @@ function get(req, res) {
  * @property {string} req.body.productOrder - ταξη προιοντος πχ Α δημοτηκου.
  * @returns {Product}
  */
-function create(req, res, next) {
-  const product = new Product({
-    productDetail: req.body.productDetail,
-    productCode: req.body.productCode,
-    productCategory: req.body.productCategory,
-    productSubcategory: req.body.productSubcategory,
-    productPosition: req.body.productPosition,
-    productOrder: req.body.productOrder,
+function create(req, res, next){
+  upload(req,res,(err) => {
+     if(err){
+       return res.end('error request file');
+     }
+     const product = new Product({
+       productDetail: req.body.productDetail,
+       productCode: req.body.productCode,
+       productCategory: req.body.productCategory,
+       productSubcategory: req.body.productSubcategory,
+       productQuantity: req.body.productQuantity,
+       productPosition: req.body.productPosition,
+       productOrder: req.body.productOrder,
+       filename:req.body.filename,
+       originalname:req.body.originalname,
+     });
+     product.save()
+       .then(savedProduct => res.json(savedProduct))
+       .catch(e => next(e));
   });
 
-  product.save()
-    .then(savedProduct => res.json(savedProduct))
-    .catch(e => next(e));
-}
+};
 
 /**
  * Update existing Product
@@ -53,18 +74,46 @@ function create(req, res, next) {
  * @returns {Product}
  */
 function update(req, res, next) {
-  const product = req.product;
-  product.productDetail = req.body.productDetail;
-  product.productCode = req.body.productCode;
-  product.productCategory = req.body.productCategory;
-  product.productSubcategory = req.body.productSubcategory;
-  product.productPosition = req.body.productPosition;
-  product.productOrder = req.body.productOrder;
+  Product.findOneAndUpdate({productCode:req.body.productCode},req.body,{upsert:false},function(err,product){
+     if(product === null){
+      return res.send(500,{error: "the product with this productCode doesntExist"});
+     }else{
+           if(req.body.wantToadd === "add"){
+           product.productQuantity = product.productQuantity+req.body.productQuantity;
+           product.save(function(err){
+                   if(err){
+                     return res.json({
+                       error : err
+                     });
+                   }
+           });
+           }else{
+              if(req.body.productQuantity > product.productQuantity){
+                  return res.json({
+                    error : "Δεν μπορεις να διαγραψεις τοσο μεγαλη ποσοτητα."
+                  });
+              }else{
+                product.productQuantity = product.productQuantity-req.body.productQuantity;
+                product.save(function(err){
+                        if(err){
+                          return res.json({
+                            error : err
+                          });
+                        }
+                });
+                return res.json({
+                  error : product.productQuantity
+                });
 
-  product.save()
-    .then(savedProduct => res.json(savedProduct))
-    .catch(e => next(e));
+               };
+           }
+       return res.json({
+         succefully: "Succefully saved."
+       });
+     }
+  });
 }
+
 
 /**
  * Get Product list.
@@ -75,7 +124,7 @@ function update(req, res, next) {
 function list(req, res, next) {
   const { limit = 50, skip = 0 } = req.query;
   Product.list({ limit, skip })
-    .then(products => res.json(products))
+    .then(products => res.json({data:products}))
     .catch(e => next(e));
 }
 

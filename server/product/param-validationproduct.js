@@ -8,6 +8,7 @@ module.exports = {
       productCode: Joi.string().required(),
       productCategory: Joi.string().required(),
       productSubcategory: Joi.string().required(),
+      productQuantity: Joi.number().required(),
       productPosition: Joi.string().required(),
       productOrder: Joi.string().required()
     }
@@ -20,12 +21,11 @@ module.exports = {
       productCode: Joi.string().required(),
       productCategory: Joi.string().required(),
       productSubcategory: Joi.string().required(),
+      productQuantity: Joi.number().required(),
       productPosition: Joi.string().required(),
       productOrder: Joi.string().required()
-    },
-    params: {
-      productId: Joi.string().required()
     }
+
   },
 
 };

@@ -6,11 +6,11 @@ const APIError = require('../helpers/APIError');
 const ProductSchema = new mongoose.Schema({
   filename: {
      type: String,
-     required: true
+     required: false
    },
    originalname: {
-     type: String,
-     required: true
+     type: Buffer,
+     required: false
    },
   productDetail: {
     type: String,
@@ -27,6 +27,10 @@ const ProductSchema = new mongoose.Schema({
   },
   productSubcategory: {
     type: String,
+    required:true
+  },
+  productQuantity:{
+    type:Number,
     required:true
   },
   productPosition: {
