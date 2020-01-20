@@ -41,25 +41,34 @@ function get(req, res) {
  * @returns {Product}
  */
 function create(req, res, next){
-  upload(req,res,(err) => {
-     if(err){
-       return res.end('error request file');
-     }
-     const product = new Product({
-       productDetail: req.body.productDetail,
-       productCode: req.body.productCode,
-       productCategory: req.body.productCategory,
-       productSubcategory: req.body.productSubcategory,
-       productQuantity: req.body.productQuantity,
-       productPosition: req.body.productPosition,
-       productOrder: req.body.productOrder,
-       filename:req.body.filename,
-       originalname:req.body.originalname,
-     });
-     product.save()
-       .then(savedProduct => res.json(savedProduct))
-       .catch(e => next(e));
-  });
+	Product.findOne({productCode:req.body.productCode},function (err,product){
+		if(product !== null){
+			return res.json({
+				errorproductCode : "product with this productCode Excist"
+			});
+		}else{
+			upload(req,res,(err) => {
+				 if(err){
+					 return res.end('error request file');
+				 }
+				 const product = new Product({
+					 productDetail: req.body.productDetail,
+					 productCode: req.body.productCode,
+					 productCategory: req.body.productCategory,
+					 productSubcategory: req.body.productSubcategory,
+					 productQuantity: req.body.productQuantity,
+					 productPosition: req.body.productPosition,
+					 productOrder: req.body.productOrder,
+					 filename:req.body.filename,
+					 originalname:req.body.originalname,
+				 });
+				 product.save()
+					 .then(savedProduct => res.json(savedProduct))
+					 .catch(e => next(e));
+			});
+		}
+
+	})
 
 };
 
@@ -114,7 +123,8 @@ function update(req, res, next) {
                };
            }
        return res.json({
-         succefully: "Succefully saved."
+         succefully: "Succefully saved.",
+				 Product : product
        });
      }
   });
