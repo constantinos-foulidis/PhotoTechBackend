@@ -149,10 +149,17 @@ function list(req, res, next) {
  * @returns {Product}
  */
 function remove(req, res, next) {
-  const product = req.product;
-  product.remove()
-    .then(deletedProduct => res.json(deletedProduct))
-    .catch(e => next(e));
-}
+  Product.findOne({productCode:req.body.productCode},function(err,product){
+		if(product == null){
+			return res.json({
+				error : "product with this productCode doesnt exist"
+			});
+		}else{
+			product.remove()
+		    .then(deletedProduct => res.json(deletedProduct))
+		    .catch(e => next(e));
+		}
+	});
+};
 
 module.exports = { load, get, create, update, list, remove };

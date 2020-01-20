@@ -23,8 +23,9 @@ router.route('/:productId')
 
 
   /** DELETE /api/products/:productId - Delete product */
-  .delete(productCtrl.remove);
-
+//  .delete(productCtrl.remove);
+router.route('/delete')
+.delete(productCtrl.remove);
 router.route('/update')
 .post(validate(paramValidation.updateProduct), productCtrl.update);
 /** Load product when API with productId route parameter is hit */

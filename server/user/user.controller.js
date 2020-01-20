@@ -93,10 +93,21 @@ function list(req, res, next) {
  * @returns {User}
  */
 function remove(req, res, next) {
-  const user = req.user;
-  user.remove()
-    .then(deletedUser => res.json(deletedUser))
-    .catch(e => next(e));
-}
+  User.findOne({username:req.body.username},function(err,user){
+    if(user == null){
+      return res.json({
+        error : "user with this username doesnt exist"
+      });
+    }else{
+      user.remove()
+          .then(deletedUser => res.json(deletedUser))
+          .catch(e => next(e));
+    }
+  });
+  //const user = req.user;
+  //user.remove()
+  //  .then(deletedUser => res.json(deletedUser))
+  //  .catch(e => next(e));
+};
 
 module.exports = { load, get, create, update, list, remove };

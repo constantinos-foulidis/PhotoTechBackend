@@ -17,13 +17,15 @@ router.route('/:userId')
   .get(userCtrl.get)
 
   /** PUT /api/users/:userId - Update user */
-  .put(validate(paramValidation.updateUser), userCtrl.update)
+//  .put(validate(paramValidation.updateUser), userCtrl.update)
 
   /** DELETE /api/users/:userId - Delete user */
-  .delete(userCtrl.remove);
+//  .delete(userCtrl.remove);
 
 /** Load user when API with userId route parameter is hit */
 router.param('userId', userCtrl.load);
+router.route('/delete')
+.delete(userCtrl.remove);
 router.route('/update')
 .post(validate(paramValidation.updateUser), userCtrl.update);
 
