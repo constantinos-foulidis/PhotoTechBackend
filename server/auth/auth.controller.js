@@ -25,12 +25,13 @@ function login(req, res, next) {
       }, config.jwtSecret);
       return res.json({
         token,
-        username: user.username
+        username: user.username,
+        isAdmin: user.isAdmin
       });
   }
   else{
     return res.json({
-      
+
       error: "User authentication failed"
     });
   }
