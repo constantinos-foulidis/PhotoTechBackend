@@ -11,13 +11,12 @@ router.route('/')
   .get(productCtrl.list)
 
   /** POST /api/products - Create new product */
-  .post(validate(paramValidation.createProduct),productCtrl.create);
-
+  .post(validate(paramValidation.createProduct), productCtrl.create);
 
 
 router.route('/:productId')
   /** GET /api/products/:productId - Get product */
-  .get(productCtrl.get)
+  .get(productCtrl.get);
 
   /** PUT /api/products/:productId - Update product */
 
@@ -29,6 +28,6 @@ router.route('/delete')
 router.route('/update')
 .post(validate(paramValidation.updateProduct), productCtrl.update);
 /** Load product when API with productId route parameter is hit */
-//router.param('productId', productCtrl.load);
+// router.param('productId', productCtrl.load);
 
 module.exports = router;

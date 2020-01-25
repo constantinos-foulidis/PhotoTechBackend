@@ -1,6 +1,4 @@
 const jwt = require('jsonwebtoken');
-const httpStatus = require('http-status');
-const APIError = require('../helpers/APIError');
 const config = require('../../config/config');
 const User = require('../user/user.model');
 
@@ -14,12 +12,14 @@ const User = require('../user/user.model');
  * @param next
  * @returns {*}
  */
-function login(req, res, next) {
-
+// eslint-disable-next-line no-unused-vars
+function login(req, res, _next) {
   // Ideally you'll fetch this from the db
   // Idea here was to show how jwt works with
-  User.findOne({username: req.body.username}, function(err, user){
-    if (user!== null && req.body.username === user.username && req.body.password === user.password) {
+  User.findOne({ username: req.body.username }, (_err, user) => {
+    if (user !== null &&
+      req.body.username === user.username
+      && req.body.password === user.password) {
       const token = jwt.sign({
         username: user.username
       }, config.jwtSecret);
@@ -28,17 +28,15 @@ function login(req, res, next) {
         username: user.username,
         isAdmin: user.isAdmin
       });
-  }
-  else{
+    }
+
     return res.json({
 
-      error: "User authentication failed"
+      error: 'User authentication failed'
     });
-  }
-});
+  });
 
-  //const err = new APIError('Authentication error');
-
+  // const err = new APIError('Authentication error');
 }
 
 /**
