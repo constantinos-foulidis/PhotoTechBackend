@@ -54,6 +54,7 @@ function create(req, res, next) {
       if (err) {
         return res.end('error request file');
       }
+      console.log('[add product] path: ', req.file.path);
       const newProduct = new Product({
         productDetail: req.body.productDetail,
         productCode: req.body.productCode,
@@ -63,7 +64,7 @@ function create(req, res, next) {
         productPosition: req.body.productPosition,
         productOrder: req.body.productOrder,
         filename: req.file.filename,
-        originalname: String.fromCharCode(...req.file.path.data),
+        originalname: req.file.path,
       });
       newProduct.save()
         .then(savedProduct => res.json(savedProduct))
