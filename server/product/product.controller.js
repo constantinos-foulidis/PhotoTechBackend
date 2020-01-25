@@ -3,9 +3,7 @@ var multer = require('multer');
 
 
 const storage = multer.diskStorage({
-	destination: (req, file, cb) => {
-		cb(null, "uploads/");
-	},
+	destination: '/uploads',
 	filename: (req, file, cb) => {
 		cb(null, file.originalname);
 	}
@@ -59,8 +57,8 @@ function create(req, res, next){
 					 productQuantity: req.body.productQuantity,
 					 productPosition: req.body.productPosition,
 					 productOrder: req.body.productOrder,
-					 filename:req.body.filename,
-					 originalname:req.body.originalname,
+					 filename:req.file.filename,
+					 originalname:req.file.originalname,
 				 });
 				 product.save()
 					 .then(savedProduct => res.json(savedProduct))

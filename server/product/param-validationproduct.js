@@ -3,7 +3,6 @@ const Joi = require('joi');
 module.exports = {
   // POST /api/users
   createProduct: {
-    body: {
       productDetail: Joi.string().required(),
       productCode: Joi.string().required(),
       productCategory: Joi.string().required(),
@@ -11,7 +10,6 @@ module.exports = {
       productQuantity: Joi.number().required(),
       productPosition: Joi.string().required(),
       productOrder: Joi.string().required()
-    }
   },
 
   // UPDATE /api/users/:userId
