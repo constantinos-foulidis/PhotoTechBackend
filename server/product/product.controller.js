@@ -7,7 +7,6 @@ const path = require('path');
 const multer = require('multer');
 
 const uploadDir = path.join(process.cwd(), 'uploads');
-console.log('[product controller] path: ', path.join(process.cwd(), 'uploads'));
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -64,7 +63,6 @@ function create(req, res, next) {
         return res.end('error request file');
       }
       const filePath = req.file.path.replace(process.cwd(), '');
-      console.log('[products controller] image file path: ', filePath);
       const newProduct = new Product({
         productDetail: req.body.productDetail,
         productCode: req.body.productCode,
