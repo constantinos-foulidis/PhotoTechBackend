@@ -51,16 +51,18 @@ function get(req, res) {
  */
 function create(req, res, next) {
   // eslint-disable-next-line consistent-return
-  Product.findOne({ productCode: req.body.productCode }, (_err, product) => {
-    if (product !== null) {
-      return res.json({
-        errorproductCode: 'product with this productCode Excist'
-      });
-    }
-    // eslint-disable-next-line consistent-return
-    upload(req, res, (err) => {
+  // eslint-disable-next-line consistent-return
+  upload(req, res, (err) => {
+    Product.findOne({ productCode: req.body.productCode }, (_err, product) => {
+      console.log('req.body.productCode: ', req.body.productCode);
+      console.log('product form findOne: ', product);
       if (err) {
         return res.end('error request file');
+      }
+      if (product !== null) {
+        return res.json({
+          errorproductCode: 'product with this productCode Excist'
+        });
       }
       const filePath = req.file.path.replace(process.cwd(), '');
       const newProduct = new Product({
