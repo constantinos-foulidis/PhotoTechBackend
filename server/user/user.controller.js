@@ -55,6 +55,7 @@ function create(req, res, next) {
  * @returns {User}
  */
 function update(req, res, next) {
+  
   User.findOneAndUpdate({username:req.body.username},req.body,{upsert:false},function(err,user){
         if(user ===null){
             return res.send(500,{error: "user with this username doesntExist"});

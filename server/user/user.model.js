@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema({
     required: true
   },
   isAdmin: {
-    type: String,
+    type: Boolean,
     required: true
   //  match: [/^[1-9][0-9]{9}$/, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.']
   },
