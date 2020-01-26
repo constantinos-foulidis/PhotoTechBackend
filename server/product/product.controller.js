@@ -2,11 +2,20 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 const Product = require('./product.model');
+const fs = require('fs');
+const path = require('path');
 const multer = require('multer');
 
+const uploadDir = path.join(process.cwd(), 'uploads');
+console.log('[product controller] path: ', path.join(process.cwd(), 'uploads'));
 
 const storage = multer.diskStorage({
-  destination: '/uploads',
+  destination: (req, file, cb) => {
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir);
+    }
+    cb(null, uploadDir);
+  },
   filename: (_req, file, cb) => {
     cb(null, file.originalname);
   }
@@ -54,7 +63,8 @@ function create(req, res, next) {
       if (err) {
         return res.end('error request file');
       }
-      console.log('[add product] path: ', req.file.path);
+      const filePath = req.file.path.replace(process.cwd(), '');
+      console.log('[products controller] image file path: ', filePath);
       const newProduct = new Product({
         productDetail: req.body.productDetail,
         productCode: req.body.productCode,
@@ -64,7 +74,7 @@ function create(req, res, next) {
         productPosition: req.body.productPosition,
         productOrder: req.body.productOrder,
         filename: req.file.filename,
-        originalname: req.file.path,
+        originalname: filePath,
       });
       newProduct.save()
         .then(savedProduct => res.json(savedProduct))
