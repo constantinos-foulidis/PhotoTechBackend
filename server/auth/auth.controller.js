@@ -16,6 +16,7 @@ const User = require('../user/user.model');
 function login(req, res, _next) {
   // Ideally you'll fetch this from the db
   // Idea here was to show how jwt works with
+  //lol
   User.findOne({ username: req.body.username }, (_err, user) => {
     if (user !== null &&
       req.body.username === user.username
