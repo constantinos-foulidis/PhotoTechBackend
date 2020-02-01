@@ -5,13 +5,13 @@ const APIError = require('../helpers/APIError');
 
 const ProductSchema = new mongoose.Schema({
   filename: {
-     type: String,
-     required: false
-   },
-   originalname: {
-     type: Buffer,
-     required: false
-   },
+    type: String,
+    required: false
+  },
+  originalname: {
+    type: String,
+    required: false
+  },
   productDetail: {
     type: String,
     required: true
@@ -27,19 +27,19 @@ const ProductSchema = new mongoose.Schema({
   },
   productSubcategory: {
     type: String,
-    required:true
+    required: true
   },
-  productQuantity:{
-    type:Number,
-    required:true
+  productQuantity: {
+    type: Number,
+    required: true
   },
   productPosition: {
     type: String,
-    required:true
+    required: true
   },
   productOrder: {
     type: String,
-    required:true
+    required: true
   }
 });
 

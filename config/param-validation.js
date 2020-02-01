@@ -19,7 +19,7 @@ module.exports = {
       isAdmin: Joi.string().required(),
       password: Joi.string().required()
     }
-  
+
   },
 
   // POST /api/auth/login

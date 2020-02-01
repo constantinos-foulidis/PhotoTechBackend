@@ -1,9 +1,10 @@
+/* eslint-disable consistent-return */
 const User = require('./user.model');
 
 /**
  * Load user and append to req.
  */
-function load(req, res, next, id) {
+function load(req, _res, next, id) {
   User.get(id)
     .then((user) => {
       req.user = user; // eslint-disable-line no-param-reassign
@@ -27,25 +28,23 @@ function get(req, res) {
  * @returns {User}
  */
 function create(req, res, next) {
-  User.findOne({username:req.body.username},function (err,user){
-    if(user !==null){
+  User.findOne({ username: req.body.username }, (_err, user) => {
+    if (user !== null) {
       return res.json({
-        errorUsername: "user with this username already exist"
+        errorUsername: 'user with this username already exist'
       });
-    }else{
-      const user = new User({
-        username: req.body.username,
-        fullName: req.body.fullName,
-        isAdmin: req.body.isAdmin,
-        password: req.body.password,
-      });
-
-      user.save()
-        .then(savedUser => res.json(savedUser))
-        .catch(e => next(e));
     }
-  });
+    const newUser = new User({
+      username: req.body.username,
+      fullName: req.body.fullName,
+      isAdmin: req.body.isAdmin,
+      password: req.body.password,
+    });
 
+    newUser.save()
+      .then(savedUser => res.json(savedUser))
+      .catch(e => next(e));
+  });
 }
 
 /**
@@ -55,7 +54,7 @@ function create(req, res, next) {
  * @returns {User}
  */
 function update(req, res, next) {
-  
+
   User.findOneAndUpdate({username:req.body.username},req.body,{upsert:false},function(err,user){
         if(user ===null){
             return res.send(500,{error: "user with this username doesntExist"});
@@ -94,21 +93,20 @@ function list(req, res, next) {
  * @returns {User}
  */
 function remove(req, res, next) {
-  User.findOne({username:req.body.username},function(err,user){
-    if(user == null){
+  User.findOne({ username: req.body.username }, (_err, user) => {
+    if (user == null) {
       return res.json({
-        error : "user with this username doesnt exist"
+        error: 'user with this username doesnt exist'
       });
-    }else{
-      user.remove()
+    }
+    user.remove()
           .then(deletedUser => res.json(deletedUser))
           .catch(e => next(e));
-    }
   });
-  //const user = req.user;
-  //user.remove()
+  // const user = req.user;
+  // user.remove()
   //  .then(deletedUser => res.json(deletedUser))
   //  .catch(e => next(e));
-};
+}
 
 module.exports = { load, get, create, update, list, remove };
