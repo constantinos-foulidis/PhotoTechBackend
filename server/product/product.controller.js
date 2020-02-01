@@ -116,6 +116,9 @@ function update(req, res, _next) {
             });
           }
         });
+        return res.json({
+          data:product
+        });
       } else if (req.body.productQuantity > product.productQuantity) {
         return res.json({
           error: 'Δεν μπορεις να διαγραψεις τοσο μεγαλη ποσοτητα.'
@@ -131,7 +134,7 @@ function update(req, res, _next) {
           }
         });
         return res.json({
-          error: product.productQuantity
+          data: product
         });
       }
       return res.json({
