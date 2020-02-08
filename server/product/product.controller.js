@@ -106,10 +106,10 @@ function update(req, res, _next) {
              // req.body.productQuantity εχει την ποσοτητα που θελω να προσθεσω πχ αν το req.body.productQuantity
              // ειναι 100  και το req.body.productQuantity ειναι 50
              // στην βαση θα μπει 100+50 = 150
-        const updatedProduct = Object.assign({}, product);
-        updatedProduct.productQuantity = product.productQuantity + req.body.productQuantity;
+        //const updatedProduct = Object.assign({}, product);
+        product.productQuantity = product.productQuantity + req.body.productQuantity;
            // κανουμε update to new productQuantity
-        updatedProduct.save((err) => {
+        product.save((err) => {
           if (err) {
             return res.json({
               error: err
