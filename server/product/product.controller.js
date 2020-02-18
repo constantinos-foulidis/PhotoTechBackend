@@ -123,10 +123,31 @@ function update(req, res, _next) {
         return res.json({
           error: 'Δεν μπορεις να διαγραψεις τοσο μεγαλη ποσοτητα.'
         });
-      } else {
-        const updatedProduct = Object.assign({}, product);
-        updatedProduct.productQuantity = product.productQuantity - req.body.productQuantity;
-        updatedProduct.save((err) => {
+      } else if (req.body.wantToadd === 'lolen'){
+          product.productDetail=req.body.productDetail;
+          product.productCode=req.body.productCode;
+          product.productCategory=req.body.productCategory;
+          product.productSubcategory=req.body.productSubcategory;
+          product.productOrder=req.body.productOrder;
+          product.productPosition=req.body.productPosition;
+          product.productQuantity =  product.productQuantity+10;
+          product.productQuantity=product.productQuantity-10;
+        product.save((err) => {
+          if (err) {
+            return res.json({
+              error: err
+            });
+          }
+        });
+        return res.json({
+          data: product,
+          qua:product.productQuantity
+        });
+      }
+      else {
+      //  const updatedProduct = Object.assign({}, product);
+        product.productQuantity = product.productQuantity - req.body.productQuantity;
+        product.save((err) => {
           if (err) {
             return res.json({
               error: err
@@ -137,10 +158,7 @@ function update(req, res, _next) {
           data: product
         });
       }
-      return res.json({
-        succefully: 'Succefully saved.',
-        Product: product
-      });
+
     });
 }
 
