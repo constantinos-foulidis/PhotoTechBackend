@@ -34,7 +34,7 @@ const ProductSchema = new mongoose.Schema({
     required: true
   },
   productPosition: {
-    type: String,
+    type: Array,
     required: true
   },
   productOrder: {

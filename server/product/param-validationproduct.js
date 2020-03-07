@@ -8,7 +8,7 @@ module.exports = {
     productCategory: Joi.string().required(),
     productSubcategory: Joi.string().required(),
     productQuantity: Joi.number().required(),
-    productPosition: Joi.string().required(),
+    productPosition: Joi.array().required(),
     productOrder: Joi.string().required()
   },
 
@@ -20,7 +20,7 @@ module.exports = {
       productCategory: Joi.string().required(),
       productSubcategory: Joi.string().required(),
       productQuantity: Joi.number().required(),
-      productPosition: Joi.string().required(),
+      productPosition: Joi.array().required(),
       productOrder: Joi.string().required()
     }
 
