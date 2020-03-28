@@ -5,6 +5,9 @@ const authGrafeio = require('./server/authGrafeio/authGrafeio.route');
 const productRoutes = require('./server/product/product.route');
 const sellersRoutes = require('./server/seller/seller.route');
 const officerRoutes = require('./server/userGrafeiou/user.route');
+const appointmentRoutes = require('./server/appointment/appointment.route');
+const customerRoutes = require('./server/Customers/customers.route');
+
 const router = express.Router(); // eslint-disable-line new-cap
 
 // TODO: use glob to match *.route files
@@ -19,6 +22,8 @@ router.use('/users', userRoutes);
 router.use('/product', productRoutes);
 router.use('/sellers',sellersRoutes);
 router.use('/officers',officerRoutes);
+router.use('/appointments',appointmentRoutes);
+router.use('/customers',customerRoutes);
 
 // mount auth routes at /auth
 router.use('/auth', authRoutes);

@@ -12,44 +12,43 @@ const Joi = require('joi');
  */
 module.exports = {
   // POST /api/sellers
-  createseller: {
+  createAppointment: {
     body: {
-      sellername: Joi.string().required(),
-      fullName: Joi.string().required(),
-      region: Joi.string().required(),
-      password: Joi.string().required(),
-      email: Joi.string().required(),
-      amount: Joi.number().required(),
+      year: Joi.string().required(),
+      month: Joi.string().required(),
+      day: Joi.string().required(),
+      time: Joi.string().required(),
       sellerid: Joi.string().required(),
-      apoitments: Joi.array().required()
+      school: Joi.string().required(),
+      NameResponse: Joi.string().required(),
+      PhoneResponse: Joi.string().required(),
+      email: Joi.string().required(),
+      topothesh: Joi.string().required()
+
     }
   },
 
   // UPDATE /api/sellers/:sellerId
-  updateseller: {
+  updateAppoitment: {
     body: {
-      sellername: Joi.string().required(),
-      fullName: Joi.string().required(),
-      region: Joi.string().required(),
-      password: Joi.string().required(),
+      year: Joi.string().required(),
+      month: Joi.string().required(),
+      day: Joi.string().required(),
+      time: Joi.string().required(),
+      sellerid: Joi.string().required(),
+      school: Joi.string().required(),
+      NameResponse: Joi.string().required(),
+      PhoneResponse: Joi.string().required(),
       email: Joi.string().required(),
-      amount: Joi.number().required(),
-      sellerid: Joi.string().required()
+      topothesh: Joi.string().required()
     }
 
   },
-  getseller: {
+  getAppointment: {
     body: {
       sellerCode: Joi.string().required()
     }
 
   },
 
-  // POST /api/auth/login
-  login: {
-    body: {
-      sellername: Joi.string().required(),
-      password: Joi.string().required()
-    }
-  }
 };

@@ -3,6 +3,40 @@ const mongoose = require('mongoose');
 const httpStatus = require('http-status');
 const APIError = require('../helpers/APIError');
 
+
+const customersSchema = new mongoose.Schema({
+  topothesy: {
+    type: String
+  },
+  school: {
+    type: String
+  //  match: [/^[1-9][0-9]{9}$/, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.']
+  },
+  sallerName:{
+    type: String
+  },
+  dynami: {
+    type: String
+  },
+  PacketCost:{
+    type:String
+  }
+});
+const apointmentSchema = new mongoose.Schema({
+  year: {
+    type: String
+  },
+  month: {
+    type: String
+  //  match: [/^[1-9][0-9]{9}$/, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.']
+  },
+  day:{
+    type: String
+  },
+  time: {
+    type: String
+  }
+});
 /**
  * seller Schema
  */
@@ -29,6 +63,7 @@ const sellerSchema = new mongoose.Schema({
     required: true
   //  match: [/^[1-9][0-9]{9}$/, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.']
   },
+  apoitments:[apointmentSchema],
   amount: {
     type: Number,
     required: true,
@@ -37,6 +72,7 @@ sellerCode: {
   type: String,
   required: true,
 },
+customers: [customersSchema],
   createdAt: {
     type: Date,
     default: Date.now
