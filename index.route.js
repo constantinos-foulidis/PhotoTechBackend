@@ -7,6 +7,7 @@ const sellersRoutes = require('./server/seller/seller.route');
 const officerRoutes = require('./server/userGrafeiou/user.route');
 const appointmentRoutes = require('./server/appointment/appointment.route');
 const customerRoutes = require('./server/Customers/customers.route');
+const photografersRoutes = require('./server/photografers/photografers.route');
 
 const router = express.Router(); // eslint-disable-line new-cap
 
@@ -24,6 +25,7 @@ router.use('/sellers',sellersRoutes);
 router.use('/officers',officerRoutes);
 router.use('/appointments',appointmentRoutes);
 router.use('/customers',customerRoutes);
+router.use('/photo',photografersRoutes);
 
 // mount auth routes at /auth
 router.use('/auth', authRoutes);

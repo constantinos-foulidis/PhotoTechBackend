@@ -27,7 +27,8 @@ function login(req, res, _next) {
       return res.json({
         token,
         username: user.username,
-        sellerCode: user.sellerCode
+        sellerCode: user.sellerCode,
+        photograferCode:user.photograferCode
       });
     }
 

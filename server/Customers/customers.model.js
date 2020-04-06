@@ -30,6 +30,10 @@ const customersSchema = new mongoose.Schema({
       type: String,
       required: true
     },
+    photograferid: {
+      type: String,
+      required: true
+    },
     packetCost: {
       type: String
     },

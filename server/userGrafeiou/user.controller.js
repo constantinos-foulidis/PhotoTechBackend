@@ -38,6 +38,7 @@ function create(req, res, next) {
       username: req.body.username,
       fullName: req.body.fullName,
       sellerCode: req.body.sellerCode,
+      photograferCode:req.body.photograferCode,
       password: req.body.password,
     });
 
@@ -55,7 +56,7 @@ function create(req, res, next) {
  */
 function update(req, res, next) {
 
-  Officer.findOneAndUpdate({officername:req.body.officername},req.body,{upsert:false},function(err,officer){
+  Officer.findOneAndUpdate({username:req.body.username},req.body,{upsert:false},function(err,officer){
         if(officer ===null){
             return res.send(500,{error: "officer with this officername doesntExist"});
         }else{

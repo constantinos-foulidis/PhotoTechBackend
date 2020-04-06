@@ -80,6 +80,7 @@ function create(req, res, next) {
       sellerCode: req.body.sellerCode,
       mobilePhone:   req.body.mobilePhone,
       schoolPhone:req.body.schoolPhone,
+      photograferid:req.body.photograferid,
       afm: req.body.afm,
       doy: req.body.doy,
       email: req.body.email,
