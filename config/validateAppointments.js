@@ -50,5 +50,11 @@ module.exports = {
     }
 
   },
+  getAppointmentByID: {
+    body: {
+      sellerid: Joi.string().required()
+    }
+
+  },
 
 };

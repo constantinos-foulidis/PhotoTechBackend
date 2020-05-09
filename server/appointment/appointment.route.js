@@ -30,5 +30,7 @@ router.route('/update')
 .post(validate(paramValidation.updateAppoitment), appointmentCtrl.update);
 router.route('/under')
 .post(validate(paramValidation.getAppointment), appointmentCtrl.getAppointments);
+router.route('/id')
+.post(validate(paramValidation.getAppointmentByID), appointmentCtrl.getAppointmentsByID);
 
 module.exports = router;

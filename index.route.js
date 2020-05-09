@@ -2,6 +2,7 @@ const express = require('express');
 const userRoutes = require('./server/user/user.route');
 const authRoutes = require('./server/auth/auth.route');
 const authGrafeio = require('./server/authGrafeio/authGrafeio.route');
+const authPhotografoi = require('./server/authPhotografoi/authPhotografoi.route');
 const productRoutes = require('./server/product/product.route');
 const sellersRoutes = require('./server/seller/seller.route');
 const officerRoutes = require('./server/userGrafeiou/user.route');
@@ -30,4 +31,5 @@ router.use('/photo',photografersRoutes);
 // mount auth routes at /auth
 router.use('/auth', authRoutes);
 router.use('/auth/Grafeio',authGrafeio);
+router.use('/auth/Photografoi',authPhotografoi);
 module.exports = router;

@@ -42,6 +42,19 @@ function getAppointments(req, res) {
   })
 
 }
+function getAppointmentsByID(req, res) {
+  Appointmentsdb.find({ sellerid: req.body.sellerid},(_err,seller) =>{
+    if (seller == null) {
+      return res.json({
+        error: 'Seller with this ID does not exist'
+      });
+    }
+      return res.json({
+        Appointments:seller
+      });
+  })
+
+}
 
 /**
  * Create new Seller
@@ -147,4 +160,4 @@ function remove(req, res, next) {
   //  .catch(e => next(e));
 }
 
-module.exports = { load, get, create, update, list, remove,getAppointments };
+module.exports = { load, get, create, update, list, remove,getAppointments,getAppointmentsByID };
