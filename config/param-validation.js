@@ -5,8 +5,8 @@ module.exports = {
   createUser: {
     body: {
       username: Joi.string().required(),
-      fullName: Joi.string().required(),
-      isAdmin: Joi.string().required(),
+      favorites: Joi.array(),
+      email: Joi.string().required(),
       password: Joi.string().required()
     }
   },
@@ -15,8 +15,8 @@ module.exports = {
   updateUser: {
     body: {
       username: Joi.string().required(),
-      fullName: Joi.string().required(),
-      isAdmin: Joi.string().required(),
+      favorites: Joi.array(),
+      email: Joi.string().required(),
       password: Joi.string().required()
     }
 

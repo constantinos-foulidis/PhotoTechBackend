@@ -1,3 +1,4 @@
+const { use } = require('chai');
 const jwt = require('jsonwebtoken');
 const config = require('../../config/config');
 const User = require('../user/user.model');
@@ -27,7 +28,11 @@ function login(req, res, _next) {
       return res.json({
         token,
         username: user.username,
-        isAdmin: user.isAdmin
+        email: user.email,
+        watched: user.watched,
+        favorite: user.favorite,
+        password: user.password,
+        user:user
       });
     }
 

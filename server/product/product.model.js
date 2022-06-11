@@ -2,45 +2,48 @@ const Promise = require('bluebird');
 const mongoose = require('mongoose');
 const httpStatus = require('http-status');
 const APIError = require('../helpers/APIError');
+const number = require('joi/lib/types/number');
 
 const ProductSchema = new mongoose.Schema({
-  filename: {
+  Title: {
     type: String,
     required: false
   },
-  originalname: {
-    type: String,
-    required: false
-  },
-  productDetail: {
+  Year: {
     type: String,
     required: true
   },
-  productCode: {
+  Released: {
     type: String,
     required: true
   //  match: [/^[1-9][0-9]{9}$/, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.']
   },
-  productCategory: {
+  Actors: {
     type: String,
     required: true
   },
-  productSubcategory: {
+  Poster: {
     type: String,
     required: true
   },
-  productQuantity: {
-    type: Number,
+  imdbRating: {
+    type: String,
     required: true
   },
-  productPosition: {
+  Genre: {
     type: Array,
     required: true
   },
-  productOrder: {
-    type: String,
-    required: true
-  }
+  Rating: {
+    default: 0,
+    type: Number,
+    required: false
+  },
+  Votes: {
+    type: Number,
+    default: 0,
+    required: false
+  },
 });
 
 /**

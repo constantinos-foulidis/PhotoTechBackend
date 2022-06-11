@@ -53,28 +53,26 @@ function create(req, res, next) {
   // eslint-disable-next-line consistent-return
   // eslint-disable-next-line consistent-return
   upload(req, res, (err) => {
-    Product.findOne({ productCode: req.body.productCode }, (_err, product) => {
-      console.log('req.body.productCode: ', req.body.productCode);
+    Product.findOne({ Title: req.body.Title }, (_err, product) => {
+      console.log('req.body.productCode: ', req.body.Title);
       console.log('product form findOne: ', product);
       if (err) {
         return res.end('error request file');
       }
       if (product !== null) {
         return res.json({
-          errorproductCode: 'product with this productCode Excist'
+          errorproductCode: 'Moview with this Title Excist'
         });
       }
-      const filePath = req.file.path.replace(process.cwd(), '');
+
       const newProduct = new Product({
-        productDetail: req.body.productDetail,
-        productCode: req.body.productCode,
-        productCategory: req.body.productCategory,
-        productSubcategory: req.body.productSubcategory,
-        productQuantity: req.body.productQuantity,
-        productPosition: req.body.productPosition,
-        productOrder: req.body.productOrder,
-        filename: req.file.filename,
-        originalname: filePath,
+        Title: req.body.Title,
+        Year: req.body.Year,
+        Released: req.body.Released,
+        Actors: req.body.Actors,
+        Poster: req.body.Poster,
+        imdbRating: req.body.imdbRating,
+        Genre: req.body.Genre,
       });
       newProduct.save()
         .then(savedProduct => res.json(savedProduct))
@@ -102,51 +100,14 @@ function update(req, res, _next) {
       if (product === null) {
         return res.send(500, { error: 'the product with this id doesntExist' });
       }
-      if (req.body.wantToadd === 'add') { // τι πραξη θελω να κανω
-             // req.body.productQuantity εχει την ποσοτητα που θελω να προσθεσω πχ αν το req.body.productQuantity
-             // ειναι 100  και το req.body.productQuantity ειναι 50
-             // στην βαση θα μπει 100+50 = 150
-        //const updatedProduct = Object.assign({}, product);
-        product.productQuantity = product.productQuantity + req.body.productQuantity;
-           // κανουμε update to new productQuantity
-        product.save((err) => {
-          if (err) {
-            return res.json({
-              error: err
-            });
-          }
-        });
-        return res.json({
-          data:product
-        });
-      } else if (req.body.productQuantity > product.productQuantity) {
-        return res.json({
-          error: 'Δεν μπορεις να διαγραψεις τοσο μεγαλη ποσοτητα.'
-        });
-      } else if (req.body.wantToadd === 'lolen'){
-          product.productDetail=req.body.productDetail;
-          product.productCode=req.body.productCode;
-          product.productCategory=req.body.productCategory;
-          product.productSubcategory=req.body.productSubcategory;
-          product.productOrder=req.body.productOrder;
-          product.productPosition=req.body.productPosition;
-          product.productQuantity =  product.productQuantity+10;
-          product.productQuantity=product.productQuantity-10;
-        product.save((err) => {
-          if (err) {
-            return res.json({
-              error: err
-            });
-          }
-        });
-        return res.json({
-          data: product,
-          qua:product.productQuantity
-        });
-      }
-      else {
+
+
       //  const updatedProduct = Object.assign({}, product);
-        product.productQuantity = product.productQuantity - req.body.productQuantity;
+        product.Rating = product.Rating + req.body.Rating;
+        product.Votes = product.Votes+1;
+        console.log(product.Rating);
+        console.log(product.Votes);
+        console.log(req.body.Rating);
         product.save((err) => {
           if (err) {
             return res.json({
@@ -157,7 +118,7 @@ function update(req, res, _next) {
         return res.json({
           data: product
         });
-      }
+
 
     });
 }

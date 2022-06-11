@@ -11,7 +11,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  fullName: {
+  email: {
     type: String,
     required: true
   //  match: [/^[1-9][0-9]{9}$/, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.']
@@ -20,9 +20,14 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  isAdmin: {
-    type: Boolean,
-    required: true
+  favorites: {
+    type: Array,
+    required: false
+  //  match: [/^[1-9][0-9]{9}$/, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.']
+  },
+  watched: {
+    type: Array,
+    required: false
   //  match: [/^[1-9][0-9]{9}$/, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.']
   },
   createdAt: {

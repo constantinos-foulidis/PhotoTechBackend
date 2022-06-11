@@ -3,25 +3,25 @@ const Joi = require('joi');
 module.exports = {
   // POST /api/users
   createProduct: {
-    productDetail: Joi.string().required(),
-    productCode: Joi.string().required(),
-    productCategory: Joi.string().required(),
-    productSubcategory: Joi.string().required(),
-    productQuantity: Joi.number().required(),
-    productPosition: Joi.array().required(),
-    productOrder: Joi.string().required()
+    Title: Joi.string().required(),
+    Year: Joi.string().required(),
+    Released: Joi.string().required(),
+    Actors: Joi.string().required(),
+    Poster: Joi.string().required(),
+    imdbRating: Joi.string().required(),
+    Genre: Joi.array().required()
   },
 
   // UPDATE /api/users/:userId
   updateProduct: {
     body: {
-      productDetail: Joi.string().required(),
-      productCode: Joi.string().required(),
-      productCategory: Joi.string().required(),
-      productSubcategory: Joi.string().required(),
-      productQuantity: Joi.number().required(),
-      productPosition: Joi.array().required(),
-      productOrder: Joi.string().required()
+      Title: Joi.string().required(),
+      Year: Joi.string().required(),
+      Released: Joi.string().required(),
+      Actors: Joi.string().required(),
+      Poster: Joi.string().required(),
+      imdbRating: Joi.string().required(),
+      Genre: Joi.array().required()
     }
 
   },

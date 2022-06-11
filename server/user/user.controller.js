@@ -36,8 +36,8 @@ function create(req, res, next) {
     }
     const newUser = new User({
       username: req.body.username,
-      fullName: req.body.fullName,
-      isAdmin: req.body.isAdmin,
+      email: req.body.email,
+      favorites: req.body.favorites,
       password: req.body.password,
     });
 
@@ -59,8 +59,17 @@ function update(req, res, next) {
         if(user ===null){
             return res.send(500,{error: "user with this username doesntExist"});
         }else{
+          user.favorites = req.body.favorites;
+          user.save((err) => {
+            if (err) {
+              return res.json({
+                error: err
+              });
+            }
+          });
           return res.json({
-            succefully: "Succefully user updated."
+            user: user,
+            fav: user.favorites
           });
         }
 
