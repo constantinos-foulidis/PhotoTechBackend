@@ -5,6 +5,14 @@ const APIError = require('../helpers/APIError');
 const number = require('joi/lib/types/number');
 
 const ProductSchema = new mongoose.Schema({
+  filename: {
+    type: String,
+    required: false
+  },
+  originalname: {
+    type: String,
+    required: false
+  },
   Title: {
     type: String,
     required: false

@@ -1,9 +1,17 @@
 /* eslint-disable consistent-return */
 const Sellerdb = require("./seller.model");
+const Pusher = require("pusher");
 
 /**
  * Load Seller and append to req.
  */
+ const pusher = new Pusher({
+  appId: "1422396",
+  key: "eb7e403f9191fb55db68",
+  secret: "06e443af5b8bebefb44c",
+  cluster: "eu",
+  useTLS: true
+});
 function load(req, _res, next, id) {
   Sellerdb.get(id)
     .then((Seller) => {
@@ -18,8 +26,10 @@ function load(req, _res, next, id) {
  * @returns {Seller}
  */
 function get(req, res) {
-  return res.json(req.Seller);
+  pusher.trigger("my_channel", "new-event", {
+  });
 }
+
 /**
  * get spesific Sellers
  * @property {string} req.body.Sellername - The Sellername of Seller.
@@ -56,32 +66,9 @@ function getSellers(req, res) {
  * @returns {Seller}
  */
 function create(req, res, next) {
-  Sellerdb.findOne({ sellername: req.body.sellername }, (_err, seller) => {
-    if (seller !== null) {
-      return res.json({
-        errorSellername: "Seller with this Sellername already exist",
-      });
-    }
-    const newseller = new Sellerdb({
-      sellername: req.body.sellername,
-      fullName: req.body.fullName,
-      email: req.body.email,
-      password: req.body.password,
-      region: req.body.region,
-      amount: req.body.amount,
-      sellerCode: req.body.sellerCode,
-      apoitments: {
-        year: req.body.apoitments[0],
-        month: req.body.apoitments[1],
-        day: req.body.apoitments[2],
-        time: req.body.apoitments[3],
-      },
-    });
-
-    newseller
-      .save()
-      .then((savedSeller) => res.json(savedSeller))
-      .catch((e) => next(e));
+  pusher.trigger("my-channel", "my-event", {
+    username: req.body.username,
+    message: req.body.message
   });
 }
 

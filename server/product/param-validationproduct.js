@@ -9,7 +9,6 @@ module.exports = {
     Actors: Joi.string().required(),
     Poster: Joi.string().required(),
     imdbRating: Joi.string().required(),
-    Genre: Joi.array().required()
   },
 
   // UPDATE /api/users/:userId
@@ -21,7 +20,6 @@ module.exports = {
       Actors: Joi.string().required(),
       Poster: Joi.string().required(),
       imdbRating: Joi.string().required(),
-      Genre: Joi.array().required()
     }
 
   },

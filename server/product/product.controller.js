@@ -64,6 +64,7 @@ function create(req, res, next) {
           errorproductCode: 'Moview with this Title Excist'
         });
       }
+      const filePath = req.file.path.replace(process.cwd(), '');
 
       const newProduct = new Product({
         Title: req.body.Title,
@@ -73,7 +74,10 @@ function create(req, res, next) {
         Poster: req.body.Poster,
         imdbRating: req.body.imdbRating,
         Genre: req.body.Genre,
+        filename: req.file.filename,
+        originalname: filePath,
       });
+
       newProduct.save()
         .then(savedProduct => res.json(savedProduct))
         .catch(e => next(e));

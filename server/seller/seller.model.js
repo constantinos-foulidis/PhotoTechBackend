@@ -6,20 +6,20 @@ const APIError = require('../helpers/APIError');
 
 const customersSchema = new mongoose.Schema({
   topothesy: {
-    type: String
+    type: false
   },
   school: {
-    type: String
+    type: false
   //  match: [/^[1-9][0-9]{9}$/, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.']
   },
   sallerName:{
-    type: String
+    type: false
   },
   dynami: {
-    type: String
+    type: false
   },
   PacketCost:{
-    type:String
+    type:false
   }
 });
 const apointmentSchema = new mongoose.Schema({
